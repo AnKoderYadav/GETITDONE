@@ -1,15 +1,15 @@
 # GETITDONE
 GETITDONE is responsve and basic todolist App | TODO LIST WEBAPP
 
-## Installation Guide
+## INSTALLATION GUIDE
 
-### clone the project
+#### clone the project
 
 ```
   git clone git@github.com:Ankur-Ydv/GETITDONE.git
 ```
 
-### Install dependencies for Both Frontend and Backend
+#### Install dependencies for Both Frontend and Backend
 
 ```
   npm install
@@ -21,12 +21,12 @@ GETITDONE is responsve and basic todolist App | TODO LIST WEBAPP
   using Mongo Atlas/Compass
 ```
 
-### start the app
+#### start the app
 
 ```
   npm start
 ```
 
-## Made By
+## MADE BY
 
 [Ankur Yadav](https://github.com/Ankur-Ydv)
