@@ -1,5 +1,5 @@
-# GETITDONE-Frontend
- GETITDONE is responsve and basic todolist App | TODO LIST WEBAPP
+# GETITDONE
+GETITDONE is responsve and basic todolist App | TODO LIST WEBAPP
 
 ## Installation Guide
 
