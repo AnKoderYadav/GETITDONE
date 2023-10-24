@@ -8,7 +8,7 @@ const {
 
 router.get("/", getTodo);
 router.post("/save", saveTodo);
-router.post("/update/:id", updateTodo);
+router.patch("/update/:id", updateTodo);
 router.delete("/delete/:id", deleteTodo);
 
 module.exports = router;

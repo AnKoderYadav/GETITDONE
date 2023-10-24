@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Box from "./Box";
 import { fetchTodos, addTodo, deleteTodo, editTodo } from "../utils/API";
-import { MdOutlineDarkMode } from "react-icons/md";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { AiOutlineLoading } from "react-icons/ai";
 
 const Home = () => {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
   const [search, setSearch] = useState("");
-  const [updating, setUpdating] = useState(false);
+  const [updating, setUpdating] = useState("");
   const [id, setId] = useState("");
   const [theme, setTheme] = useState("dark-theme");
+  const [loading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchTodos(setTodos);
+    setIsLoading(false);
   }, []);
 
   const toggleTheme = () => {
@@ -29,7 +31,7 @@ const Home = () => {
   const handleChange = (e) => setText(e.target.value);
 
   const handleEdit = (_id, text) => {
-    setUpdating(true);
+    setUpdating(_id);
     setId(_id);
     setText(text);
   };
@@ -41,7 +43,7 @@ const Home = () => {
   return (
     <>
       <Container>
-        {!todos ? (
+        {loading ? (
           <div className="loading">
             <AiOutlineLoading className="loader" />
           </div>
@@ -57,13 +59,14 @@ const Home = () => {
               />
             </header>
             <div className="form">
-              <MdOutlineDarkMode
-                className="icon"
-                onClick={() => toggleTheme()}
-              />
+              {theme === "light-theme" ? (
+                <MdLightMode className="icon" onClick={() => toggleTheme()} />
+              ) : (
+                <MdDarkMode className="icon" onClick={() => toggleTheme()} />
+              )}
               <input
                 type="text"
-                placeholder="Enter Here"
+                placeholder="Enter Your Text Here"
                 name="todo"
                 value={text}
                 onChange={(e) => handleChange(e)}
@@ -71,11 +74,19 @@ const Home = () => {
               <button
                 onClick={
                   updating
-                    ? () => editTodo(id, text, setText, setUpdating, setTodos)
-                    : () => addTodo(text, setText, setTodos)
+                    ? () =>
+                        editTodo(
+                          id,
+                          text,
+                          setText,
+                          setUpdating,
+                          setTodos,
+                          todos
+                        )
+                    : () => addTodo(text, setText, setTodos, todos)
                 }
               >
-                {updating ? "EDIT" : "ADD"}
+                {updating ? "Edit The Todo" : "Add New Todo"}
               </button>
             </div>
 
@@ -85,8 +96,9 @@ const Home = () => {
                   key={todo._id}
                   id={todo._id}
                   text={todo.text}
-                  deleteItem={() => deleteTodo(todo._id, setTodos)}
-                  handleEdit={() => handleEdit(todo._id, todo.text)}
+                  updating={updating}
+                  deleteItem={() => deleteTodo(todo._id, setTodos, todos)}
+                  editItem={() => handleEdit(todo._id, todo.text)}
                 />
               );
             })}
@@ -146,7 +158,12 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
+      gap: 2rem;
+      transition: 0.5s;
+      .icon {
+        font-size: 2rem;
+        animation: rotate 0.25s linear;
+      }
 
       input {
         width: 65%;
@@ -171,6 +188,15 @@ const Container = styled.div`
         color: var(--white);
         cursor: pointer;
       }
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(720deg);
     }
   }
 
