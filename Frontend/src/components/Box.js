@@ -8,7 +8,7 @@ const Box = ({ id, text, editItem, deleteItem, updating }) => {
 
   const handleDelete = () => {
     ref.current.style.animation = "slide-out 0.5s ease-out";
-    setTimeout(() => deleteItem(), 500);
+    setTimeout(() => deleteItem(), 100);
   };
 
   return (
