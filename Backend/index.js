@@ -16,7 +16,7 @@ app.use("/api", todoRoutes);
 
 mongoose.set("strictQuery", true);
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("connection successful"))
   .catch((error) => console.log(error));
 
