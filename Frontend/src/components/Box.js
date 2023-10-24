@@ -7,7 +7,7 @@ const Box = ({ id, text, editItem, deleteItem, updating }) => {
   const ref = useRef();
 
   const handleDelete = () => {
-    ref.current.style.animation = "slide-out 0.75s ease-out";
+    ref.current.style.animation = "slide-out 2s ease-out";
     deleteItem();
   };
 
@@ -77,7 +77,7 @@ const Container = styled.div`
       opacity: 1;
     }
     to {
-      margin-left: 800px;
+      margin-left: 1000px;
       opacity: 0.1;
     }
   }
